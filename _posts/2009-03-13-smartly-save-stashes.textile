@@ -5,31 +5,31 @@ title: smartly save stashes
 category: beginner
 ---
 
-I seem to be using "stashing":http://gitready.com/beginner/2009/01/10/stashing-your-changes.html more and more, and I've found that seeing the stash list output looking like this isn't very helpful:
+看起来我使用 "stashing":http://gitready.com/beginner/2009/01/10/stashing-your-changes.html 的次数越来越多了，并且我发现，stash list的输出看起来不是那么有用：
 
 <pre>
 $ git stash list
-stash@{0}: WIP on feature1: b50788b... First pass...
-stash@{1}: WIP on master: b50788b... First pass...
-stash@{2}: WIP on shoulda: e783fb0... Upgrading the rest...
+stash@{0}: WIP on feature1: b50788b... 第一遍...
+stash@{1}: WIP on master: b50788b... 第一遍...
+stash@{2}: WIP on shoulda: e783fb0... 更新剩下的...
 </pre>
 
-Sure, it's got the commit SHA and message that your work was based off of, but if you're anything like me, you forgot what you worked on the moment you stashed the changes and opened up that dreaded bug ticket that took hours to finish.
+当然，它有stash的父提交的SHA散列码和注释，但是如果你和我一样，常常需要stash自己的改动，去修复一个需要花费数小时的可怕的bug，最后把之前的所有事情忘得一干二净的话
 
-Instead, stashing like this is a lot better when you're trying to figure out what you actually threw in there:
+不如像这样来stash，它会让你回想当初的场景，变得容易的多。
 
-@git stash save "your message here"@
+@git stash save "你的注释"@
 
-Now, your stashes will look a lot cleaner and hopefully help you save some time when pulling information out of there.
+现在，你的stash看起来干净多了，但愿这能帮你节省一些时间。
 
 <pre>
 $ git stash list
-stash@{0}: On shoulda: Updating instructions
-stash@{1}: On master: started merge but need to fix #104 first
-stash@{2}: On feature1: Adding some stuff
+stash@{0}: On shoulda: 更新指令
+stash@{1}: On master: 开始合并，但是需要先修复#104
+stash@{2}: On feature1: 加一些东西
 </pre>
 
-If you need to see what's been changed for a certain stash, you can simply pass in the treeish for the stash, given in the @git stash list@ output. The <code>stash@{<number>}</code> part shows you how to reference that changeset. Simply pass it into @git diff@ to figure out what was changed:
+如果你想看看某个stash具体的更改内容，首先要找到它的树名（treeish），可以在 @git stash list@ 输出中找到它。<code>stash@{<number>}</code>就是某个stash的树名，把它传给 @git diff@ 命令，然后就可以看到更改的内容了：
 
 <pre>
 $ git diff stash@{0}
@@ -46,4 +46,4 @@ index b0ecaeb..4ca398c 100644
 \ No newline at end of file
 </pre>
 
-You could also use @git show@ to see the commit it was based off of as well. If you've got more stash related tips or others that you can think of, "let us know!":http://gitready.com/submit.html
+你还可以用 @git show@ 命令来查看它的父提交的信息。如果你有关于stash的，或者其它的你能想到的小窍门，欢迎 "告诉我们！":http://gitready.com/submit.html
